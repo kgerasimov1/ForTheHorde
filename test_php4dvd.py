@@ -1,7 +1,7 @@
 from model.user import User
 from selenium import webdriver
 from selenium.common.exceptions import *
-from selenium_fixture import driver
+from selenium_fixture import app
 
 def login(driver, user):
     driver.find_element_by_id("username").clear()
@@ -26,20 +26,20 @@ def remove(driver):
     driver.find_element_by_link_text("Remove").click()
     driver.switch_to_alert().accept()
 
-def test_login(driver):
-    driver.get("http://localhost/php4dvd/")
-    login(driver, User.Admin())
-    logout(driver)
+def test_login(app):
+    app.driver.get("http://localhost/php4dvd/")
+    login(app.driver, User.Admin())
+    logout(app.driver)
 
-def test_add_film(driver):
-    driver.get("http://localhost/php4dvd/")
-    login(driver, User.Admin())
-    add(driver, User.AddFilm())
-    logout(driver)
+def test_add_film(app):
+    app.driver.get("http://localhost/php4dvd/")
+    login(app.driver, User.Admin())
+    add(app.driver, User.AddFilm())
+    logout(app.driver)
 
-def test_remove_film(driver):
-    driver.get("http://localhost/php4dvd/")
-    login(driver, User.Admin())
-    add(driver, User.RemoveFilm())
-    remove(driver)
-    logout(driver)
+def test_remove_film(app):
+    app.driver.get("http://localhost/php4dvd/")
+    login(app.driver, User.Admin())
+    add(app.driver, User.RemoveFilm())
+    remove(app.driver)
+    logout(app.driver)
