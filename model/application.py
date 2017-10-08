@@ -44,3 +44,11 @@ class Application(object):
 			return True
 		except WebDriverException:
 			return False
+
+	def is_not_logged_in(self):
+		driver = self.driver
+		try:
+			self.wait.until(presence_of_element_located((By.ID, "loginform")))
+			return True
+		except WebDriverException:
+			return False
