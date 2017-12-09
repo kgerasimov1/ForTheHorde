@@ -13,8 +13,15 @@ class User(object):
 
     @classmethod
     def AddFilm(cls):
-    	return cls(name="Blade Runner", year="1982")
+        return cls(name="Blade Runner", year="1982")
 
     @classmethod
     def RemoveFilm(cls):
-    	return cls(name="Gladiator", year="2000")
+        return cls(name="Gladiator", year="2000")
+
+    @classmethod
+    def random(cls):
+        from random import randint
+        return cls(username="user" + str(randint(0, 1000000)),
+                   password="pass" + str(randint(0, 1000000)),
+                   email="user" + str(randint(0, 1000000)) + "@test.com")
