@@ -22,9 +22,24 @@ class Application(object):
 		lp.password_field.send_keys(user.password)
 		lp.submit_button.click()
 
+	def ensure_login_as(self, user):
+		element = self.wait.until(presence_of_element_located((By.CSS_SELECTOR, "nav, #loginform")))
+		if element.tag_name == "nav":
+			# we are on internal page
+			if self.is_logged_in_as(user):
+				return
+			else:
+				self.logout()
+		self.login(user)
+
 	def logout(self):
 		self.internal_page.logout_button.click()
 		self.wait.until(alert_is_present()).accept()
+
+	def ensure_logout(self):
+		element = self.wait.until(presence_of_element_located((By.CSS_SELECTOR, "nav, #loginform")))
+		if element.tag_name == "nav":
+			self.logout()
 
 	def add(self, user):
 		ip = self.internal_page
