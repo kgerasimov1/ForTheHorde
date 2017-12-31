@@ -1,10 +1,11 @@
-from php4dvd.model.user import User
-from php4dvd.pages.internal_page import InternalPage
-from php4dvd.pages.login_page import LoginPage
-from php4dvd.pages.user_management_page import UserManagementPage
-from php4dvd.pages.user_profile_page import UserProfilePage
+from model.user import User
+from pages.internal_page import InternalPage
+from pages.login_page import LoginPage
+from pages.user_management_page import UserManagementPage
+from pages.user_profile_page import UserProfilePage
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.expected_conditions import *
+from selenium.webdriver.common.by import By
 
 class Application(object):
 	def __init__(self, driver, base_url):
@@ -44,6 +45,7 @@ class Application(object):
 	def add(self, user):
 		ip = self.internal_page
 		ip.add_movie_button.click()
+		self.wait.until(presence_of_element_located((By.NAME, "name")))
 		ip.title_field.clear()
 		ip.title_field.send_keys(user.name)
 		ip.year_field.clear()
@@ -68,13 +70,15 @@ class Application(object):
 		self.internal_page.user_profile_link.click()
 		upp = self.user_profile_page
 		upp.is_this_page
-		return User(username=upp.username_field.get_attribute("value"),
-					email=upp.email_field.get_attribute("value"))
+		self.wait.until(presence_of_element_located((By.NAME, "username")))
+		return User(username=upp.user_form.username_field.get_attribute("value"),
+					email=upp.user_form.email_field.get_attribute("value"))
 
 	def add_user(self, user):
 		self.internal_page.user_management_link.click()
 		ump = self.user_management_page
 		ump.is_this_page
+		self.wait.until(presence_of_element_located((By.NAME, "username")))
 		ump.user_form.username_field.send_keys(user.username)
 		ump.user_form.email_field.send_keys(user.email)
 		ump.user_form.password_field.send_keys(user.password)

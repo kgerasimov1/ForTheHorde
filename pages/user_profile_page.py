@@ -1,5 +1,5 @@
-from internal_page import InternalPage
-from php4dvd.pages.blocks.user_form import UserForm
+from pages.internal_page import InternalPage
+from pages.blocks.user_form import UserForm
 from selenium.webdriver.support.select import Select
 
 class UserProfilePage(InternalPage):
