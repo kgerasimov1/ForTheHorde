@@ -1,4 +1,5 @@
 from model.user import User
+from model.film import Film
 from pages.internal_page import InternalPage
 from pages.login_page import LoginPage
 from pages.user_management_page import UserManagementPage
@@ -42,14 +43,14 @@ class Application(object):
 		if element.tag_name == "nav":
 			self.logout()
 
-	def add(self, user):
+	def add(self, film):
 		ip = self.internal_page
 		ip.add_movie_button.click()
-		self.wait.until(presence_of_element_located((By.NAME, "name")))
+		ip.title_field_is_visible
 		ip.title_field.clear()
-		ip.title_field.send_keys(user.name)
+		ip.title_field.send_keys(film.name)
 		ip.year_field.clear()
-		ip.year_field.send_keys(user.year)
+		ip.year_field.send_keys(film.year)
 		ip.save_button.click()
 
 	def remove(self):
@@ -70,7 +71,7 @@ class Application(object):
 		self.internal_page.user_profile_link.click()
 		upp = self.user_profile_page
 		upp.is_this_page
-		self.wait.until(presence_of_element_located((By.NAME, "username")))
+		upp.username_field_is_visible
 		return User(username=upp.user_form.username_field.get_attribute("value"),
 					email=upp.user_form.email_field.get_attribute("value"))
 
@@ -78,7 +79,7 @@ class Application(object):
 		self.internal_page.user_management_link.click()
 		ump = self.user_management_page
 		ump.is_this_page
-		self.wait.until(presence_of_element_located((By.NAME, "username")))
+		ump.username_field_is_visible
 		ump.user_form.username_field.send_keys(user.username)
 		ump.user_form.email_field.send_keys(user.email)
 		ump.user_form.password_field.send_keys(user.password)

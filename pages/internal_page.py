@@ -47,3 +47,8 @@ class InternalPage(Page):
     @property
     def is_this_page(self):
         return self.is_element_visible((By.CSS_SELECTOR, "nav"))
+
+    @property
+    def title_field_is_visible(self):
+        # return self.wait.until(presence_of_element_located((By.NAME, "name")))
+        return self.is_element_visible((By.NAME, "name"))
